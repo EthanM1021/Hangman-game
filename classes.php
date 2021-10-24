@@ -1,11 +1,5 @@
 <?php
 
-class Game {
-  public function startGame() {
-    echo "Welcome to hangman!\n\n";
-  }
-}
-
 class Menu {
   public function display(): int {
     echo "1. Play alone (randomly generated word)\n";

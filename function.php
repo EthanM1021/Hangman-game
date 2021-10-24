@@ -1,6 +1,16 @@
 <?php
 
-require("./classes.php");
+require_once("./classes.php");
+require_once("./classes.php");
+require_once("./option1.php");
+
+function startGame(): void {
+  $startMenu = new Menu();
+
+  if ($startMenu::display() == 1) {
+    getWord(readTextFile("./words.txt"));
+  }
+}
 
 /*
 * @param file name to read from
@@ -13,10 +23,22 @@ function readTextFile(string $fileName): array {
   return $contents;
 }
 
-function startGame() {
-  $newGame = new Game();
-  $startMenu = new Menu();
+/*
+* @param array of words from the text file
+*
+* @return index of that word from the array of words
+*/
+function getRandomWord(array $words): int {
+  $random = array_rand($words);
 
-  $newGame::startGame();
-  $startMenu::display();
+  return $words[$random];
+}
+
+/*
+* @param word to get length of
+*
+* @return integer of length
+*/
+function getLengthOfWord(string $word): int {
+  return strlen($word);
 }
