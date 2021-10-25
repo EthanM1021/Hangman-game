@@ -2,7 +2,6 @@
 
 require_once("./classes.php");
 require_once("./classes.php");
-require_once("./option1.php");
 
 function startGame(): void {
   // $startMenu = new Menu();
@@ -37,4 +36,13 @@ function getRandomWord(array $words): string {
 */
 function getLengthOfWord(string $word): int {
   return strlen($word);
+}
+
+/*
+* @param length of word
+*
+* @return string of underscores the length which was given
+*/
+function replaceAllLetters(int $length): string {
+  return str_repeat("_", $length);
 }

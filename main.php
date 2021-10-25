@@ -6,5 +6,12 @@ startGame();
 
 $wordsArray = readTextFile("./words.txt");
 
-getRandomWord($wordsArray);
+$word = getRandomWord($wordsArray);
 
+$length = getLengthOfWord($word);
+
+echo "\nYou're word is...\n\n";
+
+echo replaceAllLetters($length);
+
+echo "\n\n";
