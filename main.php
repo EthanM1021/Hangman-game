@@ -1,6 +1,7 @@
 <?php
 
-require("./function.php");
+require_once("./function.php");
+require_once("./classes.php");
 
 $alphabet = "abcdefghijklmnopqrstuvwxyz";
 
@@ -8,13 +9,13 @@ startGame();
 
 $wordsArray = readTextFile("./words.txt");
 
-$word = getRandomWord($wordsArray);
+$randomWord = getRandomWord($wordsArray);
 
-$length = getLengthOfWord($word);
+$length = getLengthOfWord($randomWord);
 
 echo "\nYou're word is...\n\n";
 
-echo $word;
+echo $randomWord;
 echo "\n";
 echo replaceAllLetters($length);
 
@@ -22,4 +23,14 @@ echo "\n\n";
 
 $guessedLetter = readline("Enter a letter to guess... ");
 
-echo checkLetterNotInWord($word, $guessedLetter);
+$letterInWord = checkLetterNotInWord($randomWord, $guessedLetter);
+
+$guess = new ThinkOfAName();
+
+if ($letterInWord) {
+  $updatedWord = $guess->unveilLetter($randomWord, $guessedLetter);
+  echo "You guessed correctly!\n";
+  echo $updatedWord;
+} else {
+  echo "Oops, $guessedLetter is not in the word...\n\n";
+}

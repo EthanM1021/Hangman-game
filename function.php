@@ -44,7 +44,7 @@ function getLengthOfWord(string $word): int {
 * @return string of underscores the length which was given
 */
 function replaceAllLetters(int $length): string {
-  return str_repeat("_", $length - 1);
+  return str_repeat("_ ", $length - 1);
 }
 
 function checkLetterNotInWord(string $word, string $letter): bool {
