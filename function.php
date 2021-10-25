@@ -5,11 +5,7 @@ require_once("./classes.php");
 require_once("./option1.php");
 
 function startGame(): void {
-  $startMenu = new Menu();
-
-  if ($startMenu::display() == 1) {
-    getWord(readTextFile("./words.txt"));
-  }
+  // $startMenu = new Menu();
 }
 
 /*
@@ -28,7 +24,7 @@ function readTextFile(string $fileName): array {
 *
 * @return index of that word from the array of words
 */
-function getRandomWord(array $words): int {
+function getRandomWord(array $words): string {
   $random = array_rand($words);
 
   return $words[$random];

@@ -4,8 +4,7 @@ require("./function.php");
 
 startGame();
 
-echo "\nGenerating a word, please wait...\n\n";
+$wordsArray = readTextFile("./words.txt");
 
-sleep(5);
+getRandomWord($wordsArray);
 
-echo "Are we ready?";
