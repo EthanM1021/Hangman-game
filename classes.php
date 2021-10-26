@@ -12,13 +12,13 @@
 
 // }
 
-class ThinkOfAName {
+class Word {
   private $updatedWord;
 
   public function unveilLetter(string $word, string $letter) {
     for ($i = 0; $i < strlen($word); $i++) {
         if ($word[$i] == $letter) {
-          $this->updatedWord .= $letter .= " ";
+          $this->updatedWord .= $letter . " ";
         } else {
           $this->updatedWord .= "_ ";
         }

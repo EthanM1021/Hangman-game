@@ -7,27 +7,26 @@ $alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 startGame();
 
-$wordsArray = readTextFile("./words.txt");
+$allWords = readTextFile("./words.txt");
 
-$randomWord = getRandomWord($wordsArray);
+$randomWord = getRandomWord($allWords);
 
 $length = getLengthOfWord($randomWord);
 
-echo "\nYou're word is...\n\n";
+echo "\nYour word is...\n";
 
 echo $randomWord;
 echo "\n";
 echo replaceAllLetters($length);
-
 echo "\n\n";
 
 $guessedLetter = readline("Enter a letter to guess... ");
 
-$letterInWord = checkLetterNotInWord($randomWord, $guessedLetter);
+$letterIsInWord = checkLetterNotInWord($randomWord, $guessedLetter);
 
-$guess = new ThinkOfAName();
+$guess = new Word();
 
-if ($letterInWord) {
+if ($letterIsInWord) {
   $updatedWord = $guess->unveilLetter($randomWord, $guessedLetter);
   echo "You guessed correctly!\n";
   echo $updatedWord;

@@ -35,7 +35,11 @@ function getRandomWord(array $words): string {
 * @return integer of length
 */
 function getLengthOfWord(string $word): int {
-  return strlen($word);
+  $notZeroIndexed = 0;
+  for ($i = 1; $i <= strlen($word); $i++) {
+    $notZeroIndexed++;
+  }
+  return $notZeroIndexed;
 }
 
 /*
@@ -47,10 +51,13 @@ function replaceAllLetters(int $length): string {
   return str_repeat("_ ", $length - 1);
 }
 
+/*
+* @param the word to be guessed and the users input
+*
+* @return true or false dependant on if the letter is in the word
+*/
 function checkLetterNotInWord(string $word, string $letter): bool {
-  for ($i = 0; $i < strlen($word); $i++) {
-    if ($letter == $word[$i]) {
-      return true;
-    } return false;
-  }
+  $inWord = preg_match("/$letter/", $word);
+
+  return $inWord;
 }
