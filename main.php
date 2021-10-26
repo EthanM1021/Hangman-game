@@ -5,7 +5,8 @@ require_once("./classes.php");
 require_once("./hangedman.php");
 
 $alphabet = "abcdefghijklmnopqrstuvwxyz";
-$guesses = -1;
+$guesses = 6;
+$MAX_GUESSES = 7;
 
 startGame();
 
@@ -38,7 +39,10 @@ if ($letterIsInWord) {
   echo $updatedWord;
 } else {
   echo "Oops, $guessedLetter is not in the word...\n\n";
-  $guesses++;
+  if ($guesses != $MAX_GUESSES) {
+    ++$guesses;
+    echo "Game over!\n\n";
+  }
   echo $hangman[$guesses];
   echo "\n";
 }
