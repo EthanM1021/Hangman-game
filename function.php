@@ -61,3 +61,7 @@ function checkLetterNotInWord(string $word, string $letter): bool {
 
   return $inWord;
 }
+
+function removeLetterFromAlphabet(string $letter) {
+  
+}
