@@ -5,9 +5,9 @@ require_once("./classes.php");
 require_once("./hangedman.php");
 
 $alphabet = "abcdefghijklmnopqrstuvwxyz";
-$guesses = 6;
-$MAX_GUESSES = 6;
-$currentStatus = $hangman[$guesses + 1];
+$guesses = 0;
+$MAX_GUESSES = 7;
+$currentStatus = $hangman[$guesses];
 
 startGame();
 
@@ -50,6 +50,15 @@ if ($guesses != $MAX_GUESSES) {
   echo $currentStatus;
   echo "\n";
 }
+
+/*
+* Ask user for input
+* Decide whether the letter is in the word or not
+* If it is - Add letter
+* If word is not complete redo step 1
+* If word is complete, call a winning function
+*/
+
 
 // Keep asking user for input until guesses have maxed or word is complete
 
