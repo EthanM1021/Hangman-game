@@ -16,7 +16,7 @@ class Word {
   private $updatedWord;
 
   public function unveilLetter(string $word, string $letter) {
-    for ($i = 0; $i < strlen($word); $i++) {
+    for ($i = 0; $i < strlen($word) - 1; $i++) {
         if ($word[$i] == $letter) {
           $this->updatedWord .= $letter . " ";
         } else {
