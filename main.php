@@ -6,7 +6,8 @@ require_once("./hangedman.php");
 
 $alphabet = "abcdefghijklmnopqrstuvwxyz";
 $guesses = 6;
-$MAX_GUESSES = 7;
+$MAX_GUESSES = 6;
+$currentStatus = $hangman[$guesses + 1];
 
 startGame();
 
@@ -38,16 +39,17 @@ if ($letterIsInWord) {
   echo "You guessed correctly!\n\n";
   echo $updatedWord;
 } else {
-  echo "Oops, $guessedLetter is not in the word...\n\n";
-  if ($guesses != $MAX_GUESSES) {
-    ++$guesses;
-    echo "Game over!\n\n";
-  }
-  echo $hangman[$guesses];
+  echo "Oops, $guessedLetter is not in the word...\n";
+  echo totalGuesses($guesses, $MAX_GUESSES);
+
+  
+  
+if ($guesses != $MAX_GUESSES) {
+  $guesses++;
+}
+  echo $currentStatus;
   echo "\n";
 }
-
-// Create a max guesses constant or find a way to track the number of guesses
 
 // Keep asking user for input until guesses have maxed or word is complete
 

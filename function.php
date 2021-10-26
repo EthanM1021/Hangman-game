@@ -62,6 +62,20 @@ function checkLetterNotInWord(string $word, string $letter): bool {
   return $inWord;
 }
 
-function removeLetterFromAlphabet(string $letter) {
-  
+/*
+* @param current guesses that the user has taken
+* @param maximum number of guesses
+*
+* @return message to notify them of how many guesses they have left
+*/
+function totalGuesses(int $guesses, int $max): string {
+  $remaining = $max - $guesses;
+
+  if ($remaining > 1) {
+    return "You have $remaining guesses left\n\n";
+  } else if ($remaining == 1) {
+    return "You have $remaining guess left\n\n";
+  } else {
+    return "Game Over!!!\n\n";
+  }
 }
