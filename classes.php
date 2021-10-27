@@ -15,14 +15,16 @@
 class Word {
   private $updatedWord;
 
-  public function unveilLetter(string $word, string $letter) {
+  public function unveilLetter(string $word, array $lettersGuessed) {
+    $newWord = "";
     for ($i = 0; $i < strlen($word) - 1; $i++) {
-        if ($word[$i] == $letter) {
-          $this->updatedWord .= $letter . " ";
-        } else {
-          $this->updatedWord .= "_ ";
-        }
+      if ($word[$i] == in_array($word[$i], $lettersGuessed)) {
+        $newWord .= $word[$i] . " ";
+      } else {
+        $newWord .= "_ ";
+      }
     }
+    $this->updatedWord = $newWord;
     return $this->updatedWord;
   }
 }
