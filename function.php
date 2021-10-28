@@ -45,7 +45,7 @@ function displayWordToUser(
   string $word, 
   int $length, 
   bool $firstGuess
-  ): void {
+): void {
   echo "\nYour word is...\n\n";
 
   echo $word;
