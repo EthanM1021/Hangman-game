@@ -39,7 +39,7 @@ function getLengthOfWord(string $word): int {
 }
 
 /*
-* @param word to guess, length of that word
+* @param word to guess, length of that word, whether the user has guessed a letter or not
 */
 function displayWordToUser(
   string $word, 
