@@ -41,12 +41,18 @@ function getLengthOfWord(string $word): int {
 /*
 * @param word to guess, length of that word
 */
-function displayWordToUser(string $word, int $length): void {
-  echo "\nYour word is...\n";
+function displayWordToUser(
+  string $word, 
+  int $length, 
+  bool $firstGuess
+  ): void {
+  echo "\nYour word is...\n\n";
 
   echo $word;
   echo "\n";
-  echo replaceAllLetters($length);
+  if (!$firstGuess) {
+    echo replaceAllLetters($length);
+  }
   echo "\n\n";
 }
 

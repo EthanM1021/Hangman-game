@@ -9,6 +9,8 @@ $guessedLetters = array();
 $guesses = 0;
 $MAX_GUESSES = 7;
 $currentStatus = $hangman[$guesses];
+$userHasGuessed = false;
+$guessedWord;
 
 $newGame = new Game();
 $newGame->intro();
@@ -22,9 +24,13 @@ $randomWord = getRandomWord($allWords);
 
 $length = getLengthOfWord($randomWord);
 
-while(!$isWordGuessed && !$isGameOver) {
+while (!$isWordGuessed && !$isGameOver) {
 
-displayWordToUser($randomWord, $length);
+if ($userHasGuessed) {
+  displayWordToUser($guessedWord, $length, $userHasGuessed);
+} else {
+  displayWordToUser($randomWord, $length, $userHasGuessed);
+}
 
 $guessedLetter = strtolower(readline("\n\nEnter a letter to guess... "));
 array_push($guessedLetters, $guessedLetter);
@@ -38,17 +44,16 @@ for ($i = 0; $i < strlen($alphabet); $i++) {
 $guess = new Word();
 
 if ($letterIsInWord) {
-  $updatedWord = $guess->unveilLetter($randomWord, $guessedLetters);
+  $guessedWord = $guess->unveilLetter($randomWord, $guessedLetters);
+  $userHasGuessed = true;
   echo "You guessed correctly!\n\n";
   echo $currentStatus;
-  echo "\n";
-  echo $updatedWord;
   echo "\n\n";
 } else {
   $guesses++;
   echo "Oops, $guessedLetter is not in the word...\n";
   echo $currentStatus;
-echo "\n";
+  echo "\n";
   echo totalGuesses($guesses, $MAX_GUESSES);
 }
 }
