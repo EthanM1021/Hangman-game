@@ -3,10 +3,6 @@
 require_once("./classes.php");
 require_once("./classes.php");
 
-function startGame(): void {
-  // $startMenu = new Menu();
-}
-
 /*
 * @param file name to read from
 *

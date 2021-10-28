@@ -9,11 +9,12 @@ $guessedLetters = array();
 $guesses = 0;
 $MAX_GUESSES = 7;
 $currentStatus = $hangman[$guesses];
-$currentWord;
-$wordGuessed = false;
-$gameOver = false;
 
-startGame();
+$newGame = new Game();
+$newGame->intro();
+
+$isWordGuessed = $newGame->getWordGuessed();
+$isGameOver = $newGame->getGameOver();
 
 $allWords = readTextFile("./words.txt");
 
@@ -21,7 +22,7 @@ $randomWord = getRandomWord($allWords);
 
 $length = getLengthOfWord($randomWord);
 
-while($wordGuessed == false && $gameOver == false) {
+while(!$isWordGuessed && !$isGameOver) {
 
 displayWordToUser($randomWord, $length);
 
@@ -39,25 +40,21 @@ $guess = new Word();
 if ($letterIsInWord) {
   $updatedWord = $guess->unveilLetter($randomWord, $guessedLetters);
   echo "You guessed correctly!\n\n";
+  echo $currentStatus;
+  echo "\n";
   echo $updatedWord;
   echo "\n\n";
 } else {
-  echo "Oops, $guessedLetter is not in the word...\n";
-  echo totalGuesses($guesses, $MAX_GUESSES);
-  
-if ($guesses != $MAX_GUESSES) {
   $guesses++;
-} else {
-  $gameOver = true;
-}
+  echo "Oops, $guessedLetter is not in the word...\n";
   echo $currentStatus;
-  echo "\n";
+echo "\n";
+  echo totalGuesses($guesses, $MAX_GUESSES);
 }
 }
-
+// TODO: Investigate why wrong letters are making whole word dissappear
 
 // Only allow letters to be inputted
-// Store the updated word so it doesn't lose it's state
 /*
 * Ask user for input
 * Decide whether the letter is in the word or not
