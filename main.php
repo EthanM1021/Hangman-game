@@ -23,14 +23,13 @@ $randomWord = getRandomWord($allWords);
 
 $length = getLengthOfWord($randomWord);
 
-
 while (!$isWordGuessed && !$isGameOver) {
-if ($guesses == $MAX_GUESSES) {
-  $loseGame = new Lose();
-  $game->setGameOver();
-  $loseGame->badLuck($randomWord);
-  break;
-}
+  if ($guesses == $MAX_GUESSES) {
+    $loseGame = new Lose();
+    $game->setGameOver();
+    $loseGame->badLuck($randomWord);
+    break;
+  }
 
   if ($userHasGuessed) {
     displayWordToUser($guessedWord, $length, $userHasGuessed);
