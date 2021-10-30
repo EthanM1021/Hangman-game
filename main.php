@@ -7,7 +7,6 @@ require_once("./hangedman.php");
 $alphabet = "abcdefghijklmnopqrstuvwxyz";
 $guessedLetters = array();
 $guesses = 0;
-$correctGuesses = 0;
 $MAX_GUESSES = 7;
 $userHasGuessed = false;
 $guessedWord;
@@ -31,9 +30,6 @@ while (!$isWordGuessed && !$isGameOver) {
     $game->setGameOver();
     $loseGame->badLuck($randomWord);
     break;
-  } else if ($correctGuesses == $length - 1) {
-    echo "You won!";
-    break;
   }
 
   if ($userHasGuessed) {
@@ -42,8 +38,16 @@ while (!$isWordGuessed && !$isGameOver) {
     displayWordToUser($randomWord, $length, $userHasGuessed);
   }
 
+  getUserInput:
   $guessedLetter = strtolower(readline("\n\nEnter a letter to guess... "));
   array_push($guessedLetters, $guessedLetter);
+
+  if (!onlyLetters($guessedLetter)) {
+    echo "Please enter letters only...\n\n";
+    goto getUserInput;
+  }
+
+  onlyLetters($guessedLetter);
 
   for ($i = 0; $i < strlen($alphabet); $i++) {
     if ($guessedLetter == $alphabet[$i]) {
@@ -55,7 +59,6 @@ while (!$isWordGuessed && !$isGameOver) {
 
   if ($letterIsInWord) {
     $guessedWord = $guess->unveilLetter($randomWord, $guessedLetters);
-    $correctGuesses++;
     $userHasGuessed = true;
     echo "You guessed correctly!\n\n";
     echo $hangman[$guesses];

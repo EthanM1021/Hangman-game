@@ -93,3 +93,9 @@ function totalGuesses(int $guesses, int $max): string {
     return "Game Over!!!\n\n";
   }
 }
+
+function onlyLetters(string $letter): bool {
+  if (preg_match('/^\pL+$/u', $letter)) {
+   return true;
+  } return false;
+}
