@@ -7,6 +7,7 @@ require_once("./hangedman.php");
 $alphabet = "abcdefghijklmnopqrstuvwxyz";
 $guessedLetters = array();
 $guesses = 0;
+$correctGuesses = 0;
 $MAX_GUESSES = 7;
 $userHasGuessed = false;
 $guessedWord;
@@ -24,10 +25,14 @@ $randomWord = getRandomWord($allWords);
 $length = getLengthOfWord($randomWord);
 
 while (!$isWordGuessed && !$isGameOver) {
+
   if ($guesses == $MAX_GUESSES) {
     $loseGame = new Lose();
     $game->setGameOver();
     $loseGame->badLuck($randomWord);
+    break;
+  } else if ($correctGuesses == $length - 1) {
+    echo "You won!";
     break;
   }
 
@@ -50,6 +55,7 @@ while (!$isWordGuessed && !$isGameOver) {
 
   if ($letterIsInWord) {
     $guessedWord = $guess->unveilLetter($randomWord, $guessedLetters);
+    $correctGuesses++;
     $userHasGuessed = true;
     echo "You guessed correctly!\n\n";
     echo $hangman[$guesses];
@@ -64,17 +70,7 @@ while (!$isWordGuessed && !$isGameOver) {
 }
 
 // Only allow letters to be inputted
-
-/*
-* Ask user for input
-* Decide whether the letter is in the word or not
-* If it is - Add letter
-* If it is not - add one to the guesses and display hangman state
-* And notify user of guesses left
-* If word is not complete redo step 1
-* If word is complete, call a winning function
-*/
+// Don't allow same letter to be inputted
+// Decide when a user wins
 
 // TEST EVERYTHING
-
-// Get the two player version working
