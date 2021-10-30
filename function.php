@@ -94,8 +94,24 @@ function totalGuesses(int $guesses, int $max): string {
   }
 }
 
+
+/*
+* @param Letter to be checked
+*
+* @return true if letter is a letter, false if not
+*/
 function onlyLetters(string $letter): bool {
   if (preg_match('/^\pL+$/u', $letter)) {
    return true;
   } return false;
+}
+
+function letterHasBeenGuessed(array $arrayOfWords, string $letter): bool {
+  foreach ($arrayOfWords as $eachLetter) {
+    if ($eachLetter == $letter) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

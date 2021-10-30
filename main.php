@@ -40,14 +40,20 @@ while (!$isWordGuessed && !$isGameOver) {
 
   getUserInput:
   $guessedLetter = strtolower(readline("\n\nEnter a letter to guess... "));
-  array_push($guessedLetters, $guessedLetter);
 
   if (!onlyLetters($guessedLetter)) {
     echo "Please enter letters only...\n\n";
     goto getUserInput;
   }
 
-  onlyLetters($guessedLetter);
+  if ($userHasGuessed) {
+    if (letterHasBeenGuessed($guessedLetters, $guessedLetter)) {
+      echo "You have already entered $guessedLetter\n\n";
+      goto getUserInput;
+    }
+  }
+
+  array_push($guessedLetters, $guessedLetter);
 
   for ($i = 0; $i < strlen($alphabet); $i++) {
     if ($guessedLetter == $alphabet[$i]) {
@@ -72,7 +78,6 @@ while (!$isWordGuessed && !$isGameOver) {
   }
 }
 
-// Only allow letters to be inputted
 // Don't allow same letter to be inputted
 // Decide when a user wins
 
