@@ -10,16 +10,30 @@ $guesses = 0;
 define("MAX_GUESSES", 7);
 $userHasGuessed = false;
 $guessedWord = "";
+$twoPlayer = false;
+
+$menu = new Menu();
+
+if ($menu->display() == 2) {
+  $twoPlayer = true;
+}
+
 
 $game = new Game();
-$game->intro();
+if ($twoPlayer == false) {
+  $game->intro();
+}
 
 $isWordGuessed = $game->getWordGuessed();
 $isGameOver = $game->getGameOver();
 
 $allWords = readTextFile("./words.txt");
 
-$randomWord = getRandomWord($allWords);
+if ($twoPlayer == true) {
+  $randomWord = strtolower(readline("Player 1 - enter your word: \n"));
+} else {
+  $randomWord = getRandomWord($allWords);
+}
 
 $length = getLengthOfWord($randomWord);
 
@@ -28,6 +42,7 @@ while (!$isWordGuessed && !$isGameOver) {
 if ($guessedWord) {
   $noWhitespaces = noWhitespace($guessedWord);
   if ($noWhitespaces === trim($randomWord)) {
+    $game->setWordGuessed();
     $win = new Win();
     $win->congratulateUser();
     break;
@@ -40,6 +55,10 @@ if ($guessedWord) {
     $loseGame->badLuck($randomWord);
     break;
   }
+
+/* SOMETHING GOING WRONG HERE 
+  Finish Reflection
+*/
 
   if ($userHasGuessed) {
     displayWordToUser($guessedWord, $length, $userHasGuessed);

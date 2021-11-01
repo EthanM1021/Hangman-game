@@ -64,7 +64,7 @@ function displayWordToUser(
 * @return string of underscores the length which was given
 */
 function replaceAllLetters(int $length): string {
-  return str_repeat("_ ", $length - 1);
+  return str_repeat("_ ", $length);
 }
 
 /*
