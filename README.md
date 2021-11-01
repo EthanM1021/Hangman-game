@@ -55,3 +55,77 @@ if (letterHasBeenGuessed($guessedLetters, $guessedLetter)) {
 ```
 So now, this makes it readable as it now reads in plain english if letter has been guessed. I find this much more readable than potentially something like if letter in array.
 
+Also, referring back to the function, I have made it so my code is "one line, one instruction" (OLOI). 
+The first line is defining the function with appropriate name and parameters.
+The second line loops through the array
+The third line checks if the letter is in the array
+The fourth line returns true if the letter is in the array
+The fifth line closes the if statement
+The sixth line closes the foreach loop
+The seventh line returns false if the if statement resolves to false
+
+Having OLOI makes the code much easier to read than if all seven of those lines were on one line. I also find this method easier to debug. If my code fails for some reason, I can then go through each line and see where exactly it is going wrong.
+
+I have also tried my best to make most, if not all of my functions pure. A pure function is a function that if it is given the same input, it will **always** return the same output. Another example within my code would be:
+```
+/*
+* @param current guesses that the user has taken
+* @param maximum number of guesses
+*
+* @return message to notify them of how many guesses they have left
+*/
+function totalGuesses(int $guesses, int $max): string {
+  $remaining = $max - $guesses;
+
+  if ($remaining > 1) {
+    return "You have $remaining guesses left\n\n";
+  } else if ($remaining == 1) {
+    return "You have $remaining guess left\n\n";
+  } else {
+    return "Game Over!!!\n\n";
+  }
+}
+```
+
+If I break down the function declaration parameters it reads (int $guesses, int $max): string...
+The int before $guesses and $max declares what type that parameter should be. So, only integers are being able to be passed into this function. If not, then a PHP type error occurs. Then after the parameter brakcets there is a colon and a string. This is to state the return value. As you can see, there is a possiblity of three different outcomes, so there are a potential of three different outcomes but either way, each one is a string
+The comment above the function is explaining the parameters (@param) which are getting input to the function and also the return (@return) value. This is used quite often in PHP and also in my workplace and I think it looks great as it tells you what it is taking in and returning before actually reading the function.
+
+If I was to walk through this function line by line:
+ - Function declaration with parameters
+ - It then works out the remaining guesses in which the user has left
+ - If statement to see if there is more than one guess
+ - If this is fulfilled - return the output message for the user
+ - If not fulfilled, it then checks if the remaining guesses is equal to 1
+ - If still not fulfilled, the default message would be game over.
+
+This is a pure function as if you were to pass 6 and 10 into this function x amount of times. The remaining variable would always be 4 and therefore, the first return statement would always return as seen below:
+```
+totalGuesses(6, 10);
+totalGuesses(6, 10);
+totalGuesses(6, 10);
+totalGuesses(6, 10);
+
+// Output will always be:
+You have 4 guesses left
+You have 4 guesses left
+You have 4 guesses left
+You have 4 guesses left
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
