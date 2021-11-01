@@ -46,11 +46,9 @@ while (!$isWordGuessed && !$isGameOver) {
     goto getUserInput;
   }
 
-  if ($userHasGuessed) {
-    if (letterHasBeenGuessed($guessedLetters, $guessedLetter)) {
-      echo "You have already entered $guessedLetter\n\n";
-      goto getUserInput;
-    }
+  if (letterHasBeenGuessed($guessedLetters, $guessedLetter)) {
+    echo "You have already entered $guessedLetter\n\n";
+    goto getUserInput;
   }
 
   array_push($guessedLetters, $guessedLetter);
@@ -78,7 +76,6 @@ while (!$isWordGuessed && !$isGameOver) {
   }
 }
 
-// Don't allow same letter to be inputted
 // Decide when a user wins
 
 // TEST EVERYTHING
