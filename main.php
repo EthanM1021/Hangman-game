@@ -7,9 +7,9 @@ require_once("./hangedman.php");
 $alphabet = "abcdefghijklmnopqrstuvwxyz";
 $guessedLetters = array();
 $guesses = 0;
-$MAX_GUESSES = 7;
+define("MAX_GUESSES", 7);
 $userHasGuessed = false;
-$guessedWord;
+$guessedWord = "";
 
 $game = new Game();
 $game->intro();
@@ -25,9 +25,18 @@ $length = getLengthOfWord($randomWord);
 
 while (!$isWordGuessed && !$isGameOver) {
 
-  if ($guesses == $MAX_GUESSES) {
-    $loseGame = new Lose();
+if ($guessedWord) {
+  $noWhitespaces = noWhitespace($guessedWord);
+  if ($noWhitespaces === trim($randomWord)) {
+    $win = new Win();
+    $win->congratulateUser();
+    break;
+  }
+}
+
+  if ($guesses === MAX_GUESSES) {
     $game->setGameOver();
+    $loseGame = new Lose();
     $loseGame->badLuck($randomWord);
     break;
   }
@@ -46,15 +55,15 @@ while (!$isWordGuessed && !$isGameOver) {
     goto getUserInput;
   }
 
-  if (letterHasBeenGuessed($guessedLetters, $guessedLetter)) {
+  if (letterHasBeenGuessed($guessedLetters, $guessedLetter[0])) {
     echo "You have already entered $guessedLetter\n\n";
     goto getUserInput;
   }
 
-  array_push($guessedLetters, $guessedLetter);
+  array_push($guessedLetters, $guessedLetter[0]);
 
   for ($i = 0; $i < strlen($alphabet); $i++) {
-    if ($guessedLetter == $alphabet[$i]) {
+    if ($guessedLetter === $alphabet[$i]) {
       $letterIsInWord = checkLetterNotInWord($randomWord, $guessedLetter);
     }
   }
@@ -72,10 +81,6 @@ while (!$isWordGuessed && !$isGameOver) {
     echo "Oops, $guessedLetter is not in the word...\n";
     echo $hangman[$guesses];
     echo "\n";
-    echo totalGuesses($guesses, $MAX_GUESSES);
+    echo totalGuesses($guesses, MAX_GUESSES);
   }
 }
-
-// Decide when a user wins
-
-// TEST EVERYTHING

@@ -28,14 +28,14 @@ class Game {
 
 class Win extends Game {
   public function congratulateUser(): void {
-    echo "\n\n\nYou won!!!";
+    echo "\n\n\nYou won!!!\n\n";
   }
 }
 
 class Lose extends Game {
   public function badLuck(string $wordToBeGuessed): void {
     echo "\n\n\nOh no!! Too many guesses, better luck next time";
-    echo "\n\nThe word you were trying to guess was $wordToBeGuessed";
+    echo "\n\nThe word you were trying to guess was $wordToBeGuessed\n\n";
   }
 }
 
@@ -55,4 +55,3 @@ class Word {
     return $this->updatedWord;
   }
 }
-

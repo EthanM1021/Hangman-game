@@ -32,9 +32,11 @@ function getRandomWord(array $words): string {
 */
 function getLengthOfWord(string $word): int {
   $notZeroIndexed = 0;
+
   for ($i = 1; $i <= strlen($word); $i++) {
     $notZeroIndexed++;
   }
+  
   return $notZeroIndexed;
 }
 
@@ -117,4 +119,9 @@ function letterHasBeenGuessed(array $arrayOfLetters, string $letter): bool {
     }
   }
   return false;
+}
+
+function noWhitespace(string $word) {
+  $trimmedWord = str_replace(' ', '', $word);
+  return $trimmedWord;
 }
