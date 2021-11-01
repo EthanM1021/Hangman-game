@@ -16,6 +16,8 @@ For this project, some of the main challenges which I encountered were:
  - Decide the win/lose state of the game
 
 Here is my flow diagram for my program:
+![image](https://user-images.githubusercontent.com/79159281/139719038-99d26d8f-b5c5-4136-852f-0a8c8270c7d4.png)
+
 
 When starting this project, the initial plan was to write pseudocode to split each point above into smaller steps. I also planned to do one step as a commit to this repository. For example, when finding a way to store the word in a suitable fashion, that would be one commit. Then if later in the project, I saw there was a better way to store it which would make the code either:
  - More readable
