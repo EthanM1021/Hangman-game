@@ -15,6 +15,7 @@ For this project, I have developed it fully in PHP. This is the language in whic
  - A way to store the number of guesses remaining
  - If word is fulfilled, user wins
  - If guesses have been reached, end game
+ - Implement a 2 player version
 
 ### Flow Diagram
 ![image](https://user-images.githubusercontent.com/79159281/139719038-99d26d8f-b5c5-4136-852f-0a8c8270c7d4.png)
@@ -226,7 +227,9 @@ For this phase, there was 2 options which sprung to mind for this one. One was t
 
 For this, I decided to create a counter at the top of the main.php file so that when a user guesses wrong, the counter increments by one each time. I then have a seperate variable which is called MAX_GUESSES - It's in all capitals as it's a constant and in the workplace and most developers name constants all in capitals. Then I use this guess state to determine if the player has hit their maximum number of guesses which then in turn, decides if they lose the game.
 
-### Phase 6 development phase - If word is fulfilled, user wins
+### Phase 6 development phase - Implement a 2 player version
+
+Whilst creating the game, from the start I was baring in mind that this project needed to have a level of complexity and I thought the two player version would secure this. So whilst creating the different functions etc. I wanted them to be robust and reusable and then I could easily reuse them when it came to creating this version. In the end, I reused practically all of my functions and just had a boolean flag which was defined at the top of my main.php file with the other variables which when the user would pick 2 off the menu class, then the flag would be flipped and became true. Then, I would just need to navigate around my code and add the boolean flag in where it needed to be. For example, if the user wanted the two player version, instead of reading from a file, the user would enter the word and then that word is then the word which is picked and manoeuvred around my code.
 
 ### Testing
 
@@ -234,9 +237,6 @@ Although, there is no test suite file in my project, this project consisted more
 
 For testing my regex patterns, I also used this [website](https://regex101.com/). 
 
+### Reflection
 
-
-
-
-
-
+If I had more time with this project, I would've implemented something like lifelines into my work. For example, reveal 1 letter in the word. I could also implement a word category game type. For example, there could be 3 word text files or I could introduce something like an API and make this project front end to get word types such as nouns, verbs, adjectives and then the user could guess the word from this. 
