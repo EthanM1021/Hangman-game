@@ -33,3 +33,25 @@ This allows a variable/function to keep the scope of it's lifetime to a limit. T
  - Protected - Can be accessed in all classes which inherit and including the parent class
 
 For this project, I decided to have 2 parent classes. One for the game which in turn would have two instansiations which are the win and lose states of the game. Another class which will keep the state of the word. 
+
+For the standards of this project. I have ensured to maintain consistency in the naming conventions of functions, variables etc. I have chosen to write these in camel case e.g. thisIsAFunction. Camel case consists of every first letter of a word is uppercase apart from the first word. This is useful as a function or variable name cannot contain spaces so this is effectively a way of making the function name readable.
+I have also made it so that the function names are readable and are in relation to what they are doing. For example, in my code:
+```
+function letterHasBeenGuessed(array $arrayOfLetters, string $letter): bool {
+  foreach ($arrayOfLetters as $eachLetter) {
+    if ($eachLetter == $letter) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+I have made it so the function name is letterHasBeenGuessed is because it evaluates to a boolean. I then invoke this function in the main.php file inside an if statement:
+```
+if (letterHasBeenGuessed($guessedLetters, $guessedLetter)) {
+    echo "You have already entered $guessedLetter\n\n";
+    goto getUserInput;
+  }
+```
+So now, this makes it readable as it now reads in plain english if letter has been guessed. I find this much more readable than potentially something like if letter in array.
+
