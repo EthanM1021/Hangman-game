@@ -1,10 +1,12 @@
-# Hangman-game 
+# Hangman-game
+
+## Challenge Outline
 
 For my advanced programming project, I have decided to implement the game of hangman. Hangman is where a player guesses a word which is chosen by another player. The guesser gets to know the length of the word and tries to guess the word in a certain number of attempts. On every wrong guess, a drawing of a hanging man increases until it is a full drawing. Once the drawing is complete, the game is over unless the player wins beforehand. 
 
 For this project, I have developed it fully in PHP. This is the language in which we use in the workplace so I am familiar with this.
 
-For this project, some of the main challenges which I encountered were:
+### Working Plan
  - How to store the state of the word and decide if it's public, private or protected
  - How to display the current hanged man image
  - A way to store all the guessed letters so far
@@ -13,11 +15,11 @@ For this project, some of the main challenges which I encountered were:
  - A way to store the number of guesses remaining
  - If word is fulfilled, user wins
  - If guesses have been reached, end game
- - Decide the win/lose state of the game
 
-Here is my flow diagram for my program:
+### Flow Diagram
 ![image](https://user-images.githubusercontent.com/79159281/139719038-99d26d8f-b5c5-4136-852f-0a8c8270c7d4.png)
 
+## Development
 
 When starting this project, the initial plan was to write pseudocode to split each point above into smaller steps. I also planned to do one step as a commit to this repository. For example, when finding a way to store the word in a suitable fashion, that would be one commit. Then if later in the project, I saw there was a better way to store it which would make the code either:
  - More readable
@@ -204,16 +206,33 @@ $win = new Win();
 $win->congratulateUser();
 ```
 
+### Phase 1 development phase -  How to store the state of the word 
 
+For this phase, I needed to decide whether how I was storing the word. Was this in array and updating the array everytime the user had a correct guess or I could store it as a string and dynamically update it when a user guesses corrrectly. Or I could store it in the word class but this meant that I would have to make it have public access which meant the scope of the variable would be until the program ends. Another way to store the word would be to create a function inside a class and have two functions. One to set the word and one to get the word. This way I could make the set function private and the get function public. In the end, I decided to store it as a string in the main.php file. This was because I could dynamically update the string so I wasn't pushing a word to an array which would in turn, use up unnecessary memory. At first, I decided to implement the get and set functions however, I have a classes file and a main file so I would've had to make both functions public since they were being accessed from a different file. 
 
+### Phase 2 development phase - How to display the current hanged man image
 
+At first, I was looking at storing the state the same way as the word in a string and updating it dynamically however, doing this was very difficult so I needed to think of another way to get round this. In the end I made a hangedman.php file in which I stored all the hanged man images and made them as variables. I had to think forward for this phase as I needed to know how I wanted to access each hangman whenever I needed it. So, I decided to store them as indexed so the amount of remaining guesses the user had left.
 
+### Phase 3 development phase - Don't allow the user to guess the same letter twice
 
+For this, I decided to put all the letters in which the user has guessed into an array. In PHP, by default, arrays have key and value pairs, and the key is the index of the entry. For this, I had to think I would access this in the later stages of the program. To do this phase, I created a function which had 2 parameters, one for the array of letters that had already been guessed. The second parameter was the letter in which the letter. Then I'd loop through the array and if any of the indexes matches the guessed letter, then it would return true or false dependant if the letter was found. For this, it was a pure function and around 4 lines long. So this function is reusable, robust and pure. 
 
+### Phase 4 development phase - Ensure only letters are entered from the user
 
+For this phase, there was 2 options which sprung to mind for this one. One was to compare the user input to the whole alphabet or to use regex. For the first option, in PHP, it has an in built range function which you can specify two parameters. They could be 1 and 10 or A-Z. However, I found that it is case sensitive. I also found that regex could be done with one line, so this is the option I decided to use. PHP has a preg_match() function which returns true or false if the regex matches the string in which you pass to this function. My regex which I will talk about at a later stage, is now a one line function which is reusable and pure. 
 
+### Phase 5 development phase - A way to store the number of guesses remaining
 
+For this, I decided to create a counter at the top of the main.php file so that when a user guesses wrong, the counter increments by one each time. I then have a seperate variable which is called MAX_GUESSES - It's in all capitals as it's a constant and in the workplace and most developers name constants all in capitals. Then I use this guess state to determine if the player has hit their maximum number of guesses which then in turn, decides if they lose the game.
 
+### Phase 6 development phase - If word is fulfilled, user wins
+
+### Testing
+
+Although, there is no test suite file in my project, this project consisted more of visual and manual testing. So, when I implemented a feature, I would test to make sure it doesn't break any part of the code ensuring that the quality of the runtime doesn't decrease significantly for some reason. Then, if the code is working and no errors were occuring, then I would commit my work so if I did something wrong, I could then revert my work back to a certain point where no errors were occuring. 
+
+For testing my regex patterns, I also used this [website](https://regex101.com/). 
 
 
 
