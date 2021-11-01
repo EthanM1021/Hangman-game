@@ -5,12 +5,13 @@ For my advanced programming project, I have decided to implement the game of han
 For this project, I have developed it fully in PHP. This is the language in which we use in the workplace so I am familiar with this.
 
 For this project, some of the main challenges which I encountered were:
- - How to store the state of the word
+ - How to store the state of the word and decide if it's public, private or protected
  - How to display the current hanged man image
  - A way to store all the guessed letters so far
  - Don't allow the user to guess the same letter twice
  - Ensure only letters are entered from the user
- - A way to store the guesses
+ - A way to store the number of guesses remaining
+ - If word is fulfilled, user wins
  - If guesses have been reached, end game
  - Decide the win/lose state of the game
 
@@ -27,7 +28,7 @@ When designing a project like this where I need to adapt object orientated progr
  - Having it in different files also made debugging easier as I could see where the problem was coming from
  - Data redundancy - In PHP you can have public private and protected methods.
 
-This allows a variable/function to keep the scope of it's lifetime to a limit. The difference betweene ach scope is:
+This allows a variable/function to keep the scope of it's lifetime to a limit. The difference betweene each scope is:
  - Public - this can be accessed from anywhere, other classes, files, other instances of the object
  - Private - Can only be accessed in it's own class
  - Protected - Can be accessed in all classes which inherit and including the parent class
@@ -112,6 +113,95 @@ You have 4 guesses left
 You have 4 guesses left
 You have 4 guesses left
 ```
+
+Throughout my project, I have tried to make it so that as many functions are *reusable* as possible. This helps in code as it can be time saving when it comes to writing the same code again and you could also, use the code in other projects. 
+An example from my code would be:
+```
+/*
+* @param length of word
+*
+* @return string of underscores the length which was given
+*/
+function replaceAllLetters(int $length): string {
+  return str_repeat("_ ", $length - 1);
+}
+```
+This function is pure as it's the same output with the same input *everyime* and also it can be reusable.
+
+So, instead of doing:
+```
+str_repeat("_ ", $length)
+```
+every single time you would need to use this, you can create a function and just pass an integer and it makes it easier to read. It's also time saving in the sense of that you only need to remember the function name which is in plain English and don't need to remember what the code exactly states.
+
+When talking about code smells, a code smell is not particuarly a bug and it will stop your code from workinh. A code smell is a technical violation that may lead to problems further down the road. A few examples of a code smell is:
+ - Duplicated code/logic
+ - Long parameter list
+ - Long classes/objects
+ - A class instansiating another class inside itself
+ - Hard to read code
+ - No consistency with function/variable naming
+ - No consistency with indentation and spacing
+ 
+Although, these are just examples, these sets of rules differ from developer to developer, company to company. I have tried to incorporate as many as these procedures as possible to my code is readable, easy to see where something goes wrong and robust.
+One way in which I have tried to have less *smelly* code is to limit the amount of parameters to 3 going into a function and the appropriate naming of functions and variables. I would always have the function declaration, function name, variables and the open parentheses with a space in between. Then if any variables needed naming in a function, then the variables would always get declared at the top, the logic would then be the middle of the function with a line space between the variables and then finally, the return statement on the last line as I incorporated OLOI. An example would be:
+```
+/*
+* @param word to get length of
+*
+* @return integer of length
+*/
+function getLengthOfWord(string $word): int {
+  $notZeroIndexed = 0;
+
+  for ($i = 1; $i <= strlen($word); $i++) {
+    $notZeroIndexed++;
+  }
+  
+  return $notZeroIndexed;
+}
+```
+So, here the variable is the first line, then an empty line, then the logic which is the for loop and then the return statement. So, it's like a beginning, middle and end of the function.
+
+When it comes to OOP, I have a total of 2 classes and then 2 inherited classes in my code. An example of the parent class would be:
+```
+class Game {
+  private $wordGuessed = false;
+  private $gameOver = false;
+
+  public function intro(): void {
+    echo "Welcome to Hangman!\nGenerating a word...\n\n";
+    sleep(2.5);
+  }
+}
+```
+So here is a class declaration which handles my state of the game. It gets declared with the keyword of class {CLASS NAME}. Again, I have stuck to the same convention with t he beginning, middle and end. So the variables get defined at the top with their different visibilities whether that be public, private or protected. Then, there is a line break and then a function. This function is a *void* function. This means that the function has no specific return value. In this example, it has an echo statement which prints things to the console and then a call to a inbuilt PHP sleep function which stops execution of any code for the specified amount of time in seconds, in this instance, it stops execution for 2.5 seconds.
+
+In my code, there is also an example of instansiation:
+```
+$game = new Game();
+$game->intro();
+```
+So, a class can be thought of as a blueprint of an object and in this instance I am making a replica of this class.
+On the first line, I am instansiating the new class to a variable called game.
+Then I access the function which then executes. 
+In PHP, to access a function within a class the *->* is used. Although, if the function inside the class was a private function, then an error would occur as the scope of the function would not let me access it.
+
+I also included inheritance of classes in my code. In PHP, when inheriting a class, it will have access to all the parent's public and protected methods, properties and constants. For example:
+```
+class Win extends Game {
+  public function congratulateUser(): void {
+    echo "\n\n\nYou won!!!";
+  }
+}
+```
+
+Here, I am inheriting the Game class which is the parent and creating a subclass called Win. When a user wins the game, I will instansiate the Win class and invoke the public function inside of the Win class like so:
+```
+$win = new Win();
+$win->congratulateUser();
+```
+
 
 
 
