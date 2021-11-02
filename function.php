@@ -50,10 +50,10 @@ function displayWordToUser(
 ): void {
   echo "\nYour word is...\n\n";
 
-  echo $word;
-  echo "\n";
   if (!$firstGuess) {
     echo replaceAllLetters($length);
+  } else {
+    echo $word;
   }
   echo "\n\n";
 }

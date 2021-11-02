@@ -40,8 +40,9 @@ class Game {
 }
 
 class Win extends Game {
-  public function congratulateUser(): void {
+  public function congratulateUser(string $word): void {
     echo "\n\n\nYou won!!!\n\n";
+    echo "The word you guessed was $word";
   }
 }
 

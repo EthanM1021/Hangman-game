@@ -45,7 +45,7 @@ if ($guessedWord) {
   if ($noWhitespaces === trim($randomWord)) {
     $game->setWordGuessed();
     $win = new Win();
-    $win->congratulateUser();
+    $win->congratulateUser($randomWord);
     break;
   }
 }
@@ -57,13 +57,7 @@ if ($guessedWord) {
     break;
   }
 
-/* SOMETHING GOING WRONG HERE 
-  Finish Reflection
-*/
   if ($userHasGuessed) {
-    echo $guessedWord;
-  echo "\n\n";
-  echo $length;
     displayWordToUser($guessedWord, $length, $userHasGuessed);
   } else {
     displayWordToUser($randomWord, $length, $userHasGuessed);
