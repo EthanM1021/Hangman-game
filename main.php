@@ -31,6 +31,7 @@ $allWords = readTextFile("./words.txt");
 
 if ($twoPlayer == true) {
   $randomWord = strtolower(readline("Player 1 - enter your word: \n"));
+  $randomWord .= " ";
 } else {
   $randomWord = getRandomWord($allWords);
 }
@@ -59,8 +60,10 @@ if ($guessedWord) {
 /* SOMETHING GOING WRONG HERE 
   Finish Reflection
 */
-
   if ($userHasGuessed) {
+    echo $guessedWord;
+  echo "\n\n";
+  echo $length;
     displayWordToUser($guessedWord, $length, $userHasGuessed);
   } else {
     displayWordToUser($randomWord, $length, $userHasGuessed);

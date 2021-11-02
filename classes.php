@@ -7,6 +7,7 @@ class Menu {
     echo "2. Play 2 player (pick your own word)\n\n";
 
     $option = readline("\n\nPlease enter your option: ");
+    echo "\n\n";
 
     return $option;
   }

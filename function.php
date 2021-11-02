@@ -121,6 +121,11 @@ function letterHasBeenGuessed(array $arrayOfLetters, string $letter): bool {
   return false;
 }
 
+/*
+* @param word to be altered
+*
+* @return the word with no spaces
+*/
 function noWhitespace(string $word) {
   $trimmedWord = str_replace(' ', '', $word);
   return $trimmedWord;
