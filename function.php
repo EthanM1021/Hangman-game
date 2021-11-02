@@ -103,7 +103,7 @@ function totalGuesses(int $guesses, int $max): string {
 * @return true if is a letter, false if not
 */
 function onlyLetters(string $letter): bool {
-  return preg_match('/^\pL+$/u', $letter);
+  return preg_match("/^\pL+$/u", $letter);
 }
 
 /*
@@ -127,6 +127,6 @@ function letterHasBeenGuessed(array $arrayOfLetters, string $letter): bool {
 * @return the word with no spaces
 */
 function noWhitespace(string $word) {
-  $trimmedWord = str_replace(' ', '', $word);
+  $trimmedWord = str_replace(" ", "", $word);
   return $trimmedWord;
 }
