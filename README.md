@@ -38,7 +38,7 @@ This allows a variable/function to keep the scope of it's lifetime to a limit. T
  - Private - Can only be accessed in it's own class
  - Protected - Can be accessed in all classes which inherit and including the parent class
 
-For this project, I decided to have 2 parent classes. One for the game which in turn would have two instansiations which are the win and lose states of the game. Another class which will keep the state of the word. 
+For this project, I decided to have 3 parent classes. One for the game which in turn would have two instansiations which are the win and lose states of the game. Another class which will keep the state of the word. The last class would be the menu class.
 
 For the standards of this project. I have ensured to maintain consistency in the naming conventions of functions, variables etc. I have chosen to write these in camel case e.g. thisIsAFunction. Camel case consists of every first letter of a word is uppercase apart from the first word. This is useful as a function or variable name cannot contain spaces so this is effectively a way of making the function name readable.
 I have also made it so that the function names are readable and are in relation to what they are doing. For example, in my code:
@@ -149,7 +149,38 @@ When talking about code smells, a code smell is not particuarly a bug and it wil
  - No consistency with indentation and spacing
  
 Although, these are just examples, these sets of rules differ from developer to developer, company to company. I have tried to incorporate as many as these procedures as possible to my code is readable, easy to see where something goes wrong and robust.
-One way in which I have tried to have less *smelly* code is to limit the amount of parameters to 3 going into a function and the appropriate naming of functions and variables. I would always have the function declaration, function name, variables and the open parentheses with a space in between. Then if any variables needed naming in a function, then the variables would always get declared at the top, the logic would then be the middle of the function with a line space between the variables and then finally, the return statement on the last line as I incorporated OLOI. An example would be:
+
+### Phase 1 development phase -  How to store the state of the word 
+
+For this phase, I needed to decide whether how I was storing the word. Was this in array and updating the array everytime the user had a correct guess or I could store it as a string and dynamically update it when a user guesses corrrectly. Or I could store it in the word class but this meant that I would have to make it have public access which meant the scope of the variable would be until the program ends. Another way to store the word would be to create a function inside a class and have two functions. One to set the word and one to get the word. This way I could make the set function private and the get function public. In the end, I decided to store it as a string in the main.php file. This was because I could dynamically update the string so I wasn't pushing a word to an array which would in turn, use up unnecessary memory. At first, I decided to implement the get and set functions however, I have a classes file and a main file so I would've had to make both functions public since they were being accessed from a different file. 
+
+### Phase 2 development phase - How to display the current hanged man image
+
+At first, I was looking at storing the state the same way as the word in a string and updating it dynamically however, doing this was very difficult so I needed to think of another way to get round this. In the end I made a hangedman.php file in which I stored all the hanged man images and made them as variables. I had to think forward for this phase as I needed to know how I wanted to access each hangman whenever I needed it. So, I decided to store them as indexed so the amount of remaining guesses the user had left.
+
+### Phase 3 development phase - Don't allow the user to guess the same letter twice
+
+For this, I decided to put all the letters in which the user has guessed into an array. In PHP, by default, arrays have key and value pairs, and the key is the index of the entry. For this, I had to think I would access this in the later stages of the program. To do this phase, I created a function which had 2 parameters, one for the array of letters that had already been guessed. The second parameter was the letter in which the letter. Then I'd loop through the array and if any of the indexes matches the guessed letter, then it would return true or false dependant if the letter was found. For this, it was a pure function and around 4 lines long. So this function is reusable, robust and pure. 
+
+### Phase 4 development phase - Ensure only letters are entered from the user
+
+For this phase, there was 2 options which sprung to mind for this one. One was to compare the user input to the whole alphabet or to use regex. For the first option, in PHP, it has an in built range function which you can specify two parameters. They could be 1 and 10 or A-Z. However, I found that it is case sensitive. I also found that regex could be done with one line, so this is the option I decided to use. PHP has a preg_match() function which returns true or false if the regex matches the string in which you pass to this function. My regex which I will talk about at a later stage, is now a one line function which is reusable and pure. 
+
+### Phase 5 development phase - A way to store the number of guesses remaining
+
+For this, I decided to create a counter at the top of the main.php file so that when a user guesses wrong, the counter increments by one each time. I then have a seperate variable which is called MAX_GUESSES - It's in all capitals as it's a constant and in the workplace and most developers name constants all in capitals. Then I use this guess state to determine if the player has hit their maximum number of guesses which then in turn, decides if they lose the game.
+
+### Phase 6 development phase - Implement a 2 player version
+
+Whilst creating the game, from the start I was baring in mind that this project needed to have a level of complexity and I thought the two player version would secure this. So whilst creating the different functions etc. I wanted them to be robust and reusable and then I could easily reuse them when it came to creating this version. In the end, I reused practically all of my functions and just had a boolean flag which was defined at the top of my main.php file with the other variables which when the user would pick 2 off the menu class, then the flag would be flipped and became true. Then, I would just need to navigate around my code and add the boolean flag in where it needed to be. For example, if the user wanted the two player version, instead of reading from a file, the user would enter the word and then that word is then the word which is picked and manoeuvred around my code.
+
+### Testing
+
+Although, there is no test suite file in my project, this project consisted more of visual and manual testing. So, when I implemented a feature, I would test to make sure it doesn't break any part of the code ensuring that the quality of the runtime doesn't decrease significantly for some reason. Then, if the code is working and no errors were occuring, then I would commit my work so if I did something wrong, I could then revert my work back to a certain point where no errors were occuring. 
+
+For testing my regex patterns, I also used this [website](https://regex101.com/). 
+
+One way in which I have tried to have less *smelly* code is to limit the amount of parameters to 3 going into a function and the appropriate naming of functions and variables. I would always have the function declaration, function name, variables and the open parentheses with a space in between. If there are 3 variables and it goes onto the next line, then OLOI would come into force and then each variable would have their own line in turn with their data type. Then if any variables needed naming in a function, then the variables would always get declared at the top, the logic would then be the middle of the function with a line space between the variables and then finally, the return statement on the last line as I incorporated OLOI. An example would be:
 ```
 /*
 * @param word to get length of
@@ -168,7 +199,7 @@ function getLengthOfWord(string $word): int {
 ```
 So, here the variable is the first line, then an empty line, then the logic which is the for loop and then the return statement. So, it's like a beginning, middle and end of the function.
 
-When it comes to OOP, I have a total of 2 classes and then 2 inherited classes in my code. An example of the parent class would be:
+When it comes to OOP, I have a total of 3 classes and then 2 inherited classes in my code. An example of the parent class would be:
 ```
 class Game {
   private $wordGuessed = false;
@@ -207,36 +238,9 @@ $win = new Win();
 $win->congratulateUser();
 ```
 
-### Phase 1 development phase -  How to store the state of the word 
-
-For this phase, I needed to decide whether how I was storing the word. Was this in array and updating the array everytime the user had a correct guess or I could store it as a string and dynamically update it when a user guesses corrrectly. Or I could store it in the word class but this meant that I would have to make it have public access which meant the scope of the variable would be until the program ends. Another way to store the word would be to create a function inside a class and have two functions. One to set the word and one to get the word. This way I could make the set function private and the get function public. In the end, I decided to store it as a string in the main.php file. This was because I could dynamically update the string so I wasn't pushing a word to an array which would in turn, use up unnecessary memory. At first, I decided to implement the get and set functions however, I have a classes file and a main file so I would've had to make both functions public since they were being accessed from a different file. 
-
-### Phase 2 development phase - How to display the current hanged man image
-
-At first, I was looking at storing the state the same way as the word in a string and updating it dynamically however, doing this was very difficult so I needed to think of another way to get round this. In the end I made a hangedman.php file in which I stored all the hanged man images and made them as variables. I had to think forward for this phase as I needed to know how I wanted to access each hangman whenever I needed it. So, I decided to store them as indexed so the amount of remaining guesses the user had left.
-
-### Phase 3 development phase - Don't allow the user to guess the same letter twice
-
-For this, I decided to put all the letters in which the user has guessed into an array. In PHP, by default, arrays have key and value pairs, and the key is the index of the entry. For this, I had to think I would access this in the later stages of the program. To do this phase, I created a function which had 2 parameters, one for the array of letters that had already been guessed. The second parameter was the letter in which the letter. Then I'd loop through the array and if any of the indexes matches the guessed letter, then it would return true or false dependant if the letter was found. For this, it was a pure function and around 4 lines long. So this function is reusable, robust and pure. 
-
-### Phase 4 development phase - Ensure only letters are entered from the user
-
-For this phase, there was 2 options which sprung to mind for this one. One was to compare the user input to the whole alphabet or to use regex. For the first option, in PHP, it has an in built range function which you can specify two parameters. They could be 1 and 10 or A-Z. However, I found that it is case sensitive. I also found that regex could be done with one line, so this is the option I decided to use. PHP has a preg_match() function which returns true or false if the regex matches the string in which you pass to this function. My regex which I will talk about at a later stage, is now a one line function which is reusable and pure. 
-
-### Phase 5 development phase - A way to store the number of guesses remaining
-
-For this, I decided to create a counter at the top of the main.php file so that when a user guesses wrong, the counter increments by one each time. I then have a seperate variable which is called MAX_GUESSES - It's in all capitals as it's a constant and in the workplace and most developers name constants all in capitals. Then I use this guess state to determine if the player has hit their maximum number of guesses which then in turn, decides if they lose the game.
-
-### Phase 6 development phase - Implement a 2 player version
-
-Whilst creating the game, from the start I was baring in mind that this project needed to have a level of complexity and I thought the two player version would secure this. So whilst creating the different functions etc. I wanted them to be robust and reusable and then I could easily reuse them when it came to creating this version. In the end, I reused practically all of my functions and just had a boolean flag which was defined at the top of my main.php file with the other variables which when the user would pick 2 off the menu class, then the flag would be flipped and became true. Then, I would just need to navigate around my code and add the boolean flag in where it needed to be. For example, if the user wanted the two player version, instead of reading from a file, the user would enter the word and then that word is then the word which is picked and manoeuvred around my code.
-
-### Testing
-
-Although, there is no test suite file in my project, this project consisted more of visual and manual testing. So, when I implemented a feature, I would test to make sure it doesn't break any part of the code ensuring that the quality of the runtime doesn't decrease significantly for some reason. Then, if the code is working and no errors were occuring, then I would commit my work so if I did something wrong, I could then revert my work back to a certain point where no errors were occuring. 
-
-For testing my regex patterns, I also used this [website](https://regex101.com/). 
-
 ### Reflection
 
 If I had more time with this project, I would've implemented something like lifelines into my work. For example, reveal 1 letter in the word. I could also implement a word category game type. For example, there could be 3 word text files or I could introduce something like an API and make this project front end to get word types such as nouns, verbs, adjectives and then the user could guess the word from this. 
+
+Another way in which I could improve this game is having something such as a time mode game. So, at the start, it gets a random word, the timer then has a 2 minute timer, and for every guess the user gets wrong, 10 seconds gets took away and if the timer reaches 0 or the hangman is drawn, the user loses. Adding onto this, I could introduce a leaderboard and the amount of seconds which are left and the user wins, one second could be equal to 5 points and then this could be made into a competitive game.
+
