@@ -18,7 +18,6 @@ if ($menu->display() == 2) {
   $twoPlayer = true;
 }
 
-
 $game = new Game();
 if ($twoPlayer == false) {
   $game->intro();
@@ -40,15 +39,15 @@ $length = getLengthOfWord($randomWord);
 
 while (!$isWordGuessed && !$isGameOver) {
 
-if ($guessedWord) {
-  $noWhitespaces = noWhitespace($guessedWord);
-  if ($noWhitespaces === trim($randomWord)) {
-    $game->setWordGuessed();
-    $win = new Win();
-    $win->congratulateUser($randomWord);
-    break;
+  if ($guessedWord) {
+    $noWhitespaces = noWhitespace($guessedWord);
+    if ($noWhitespaces === trim($randomWord)) {
+      $game->setWordGuessed();
+      $win = new Win();
+      $win->congratulateUser($randomWord);
+      break;
+    }
   }
-}
 
   if ($guesses === MAX_GUESSES) {
     $game->setGameOver();
